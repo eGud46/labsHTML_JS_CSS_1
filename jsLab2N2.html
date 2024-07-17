@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Таблица JS</title>
+</head>
+<body>
+    <table id="myTable">
+        <tbody id="myTBody">
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>14.12.2012</td>
+            <td>Максим</td>
+        </tr>
+        </tbody>
+    </table>
+    <button id="deleteTeble" onclick=deleteTable() type="button">Удалить</button>
+    <p>Дата</p>
+    <input id="dateInput" type="text">
+    <p>Имя</p>
+    <input id="nameInput" type="text">
+    <button id="addTable" onclick=addTable() type="button">Добавить</button>
+
+    <script>
+        function deleteTable(){
+            var elements = document.getElementsByTagName('input');
+            var table = document.getElementById('myTable');
+
+            for (elem of elements){
+                if (elem.type == "checkbox"){
+                    if (elem.checked){
+                        elem.parentNode.parentNode.remove();
+                    }
+                }
+            }
+        }
+
+        function addTable(){
+            var dateTmp = document.getElementById("dateInput").value;
+            var nameTmp = document.getElementById("nameInput").value;
+            if (/^\d\d\.\d\d\.\d\d\d\d$/.test(dateTmp) && nameTmp.length != 0){
+                
+                inputDate = document.getElementById('dateInput');
+                inputName = document.getElementById('nameInput');
+                
+
+                const row = myTable.insertRow(-1);
+                const checkboxCell = row.insertCell(0);
+                checkboxCell.innerHTML = '<input type="checkbox">';
+                const dateCell = row.insertCell(1);
+                dateCell.innerHTML = dateTmp;
+                const nameCell = row.insertCell(2);
+                nameCell.innerHTML = nameTmp;
+                document.getElementById('dateInput').value = '';
+                document.getElementById('nameInput').value = '';
+                
+            } 
+            else
+                alert("Дата: ЧЧ.ММ.ГГГГ Имя: Произвольная строка символов не нулеовой длины");
+        }
+    </script>
+</body>
+</html>

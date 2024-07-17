@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Изменение цвета элемента при наведении мыши</title>
+<style>
+/* Стили */
+body {
+font-family: sans-serif;
+font-size: 16px;
+}
+
+p {
+    width: fit-content;
+}
+
+h1{
+    width: fit-content;
+}
+
+.TestText {
+width: fit-content;
+color: brown;
+background-color:aqua;
+padding: 10px;
+margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<p class="TestText">Привет Маями</p>
+<p> 123</p>
+<h1>Hex</h1>
+
+<script>
+window.onload = function () {
+// Удаляем все текстовые узлы, содержащие пробельные символы
+var nodes = document.body.childNodes;
+for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (node.nodeType === Node.TEXT_NODE && /\s/.test(node.nodeValue)) {
+        node.parentNode.removeChild(node);
+    }
+}
+
+// Перебираем все вложенные элементы тэга <body>, и на каждый узел динамически навешиваем обработчики событий
+var elements = document.body.getElementsByTagName("*");
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+
+        // Запоминаем старый цвет в каждый элемент через атрибут "data-color"
+        element.setAttribute("data-color", element.style.backgroundColor);
+        element.setAttribute("color", element.style.color);
+
+        // Навешиваем обработчик события onmouseover
+        element.onmouseover = function () {
+            this.style.backgroundColor = "red";
+            this.style.color = "blue";
+        };
+
+        // Навешиваем обработчик события onmouseout
+        element.onmouseout = function () {
+            this.style.backgroundColor = this.getAttribute("data-color");
+            this.style.color = this.getAttribute("color");
+        };
+    }
+};
+
+</script>
+</body>
+</html>
